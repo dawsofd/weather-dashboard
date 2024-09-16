@@ -1,3 +1,62 @@
+function convertUnix(data, index) {
+    const dateObject = new Date(data.daily[index + 1].dt * 1000);
+    return (dateObject.toLocaleDateString());
+}
+
+function cityCaseClean(city) {
+    var cleanedCity = city.toLowerCase().split(" ");
+    var cleanedCityName = "";
+    for (var i=0; i < cleanedCity.length; i++) {
+        cleanedCity[i] = cleanedCity[i][0].toUpperCase() + cleanedCity[i].slice(1);
+        cleanedCityName += " " + cleanedCity[i];
+    }
+    return cleanedCityName;
+}
+
+function getWeather(data) {
+    for (var i = 0; i < 5; i++) {
+        var weatherForecast = {
+            date: convertUnix(data, i),
+            icon: "http://openweathermap.org/img/wn/" + data.daily[i + 1].weather[0].icon + "@2x.png",
+            temperature: data.daily[i + 1].temp.day.toFixed(1),
+            humidity: data.daily[i + 1].humidity
+        }
+
+        var currentSelector = "#day-" + i;
+        $(currentSelector)[0].textContent = weatherForecast.date;
+        currentSelector = "#img-" + i;
+        $(currentSelector)[0].src = weatherForecast.icon;
+        currentSelector = "#temp-" + i;
+        $(currentSelector)[0].textContent = "Temp: " + weatherForecast.temperature + " \u2109";
+        currentSelector = "#hum-" + i;
+        $(currentSelector)[0].textContent = "Humidity: " + weatherForecast.humidity + "%";
+    }
+}
+
+function getCurrentWeather(data) {
+    $(".forecast-panel").addClass("visible");
+
+    $("#currentWeather")[0].src = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
+    $("#temperature")[0].textContent = "Temp: " + data.current.temperature.toFixed(1) + " \u2109";
+    $("#humidity")[0].textContent = "Humidity: " + data.current.humidity + "% ";
+    $("#wind-speed")[0].textContent = "Wind Speed: " + data.current.wind_speed.toFixed(1) + " MPH";
+    $("#uv-index")[0].textContent = " " + data.current.uvi;
+
+    if (data.current.uvi < 3) {
+        $("#uv-index").removeClass("moderate severe");
+        $("#uv-index").addClass("favorable");
+    } else if (data.current.uvi < 6) {
+        $("#uv-index").removeClass("favorable severe");
+        $("#uv-index").addClass("moderate");
+    } else {
+        $("#uv-index").removeClass("favorable moderate");
+        $("#uv-index").addClass("severe");
+    }
+    
+    getWeather(data);
+
+}
+
 function searchCity() {
     var cityName = cityCaseClean($("cityName")[0].value.trim());
     var requestURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=8b3a9d9fec91e3b17c463ea6e68f3d3d";
@@ -41,24 +100,3 @@ $("#search-button").on("click", function (e) {
     $("form")[0].reset();
 })
 
-function cityCaseClean(city) {
-    var cleanedCity = city.toLowerCase().split(" ");
-    var cleanedCityName = "";
-    for (var i=0; i < cleanedCity.length; i++) {
-        cleanedCity[i] = cleanedCity[i][0].toUpperCase() + cleanedCity[i].slice(1);
-        cleanedCityName += " " + cleanedCity[i];
-    }
-    return cleanedCityName;
-}
-
-// function searchCity
-
-// $("#search-button").on("click", ".city-name", function () {
-//     var coordinates = (localStorage.getItem($(this)[0].textContent)).split(" ");
-//     coordinates[0] = parseFloat(coordinates[0]);
-//     coordinates[1] = parseFloat(coordinates[1]);
-
-//     $("#city-name")[0].textContent = $(this)[0].textContent + " (" + dayjs().format('M/D/YYYY') + ")";
-
-//     getListCity(coordinates);
-// })
