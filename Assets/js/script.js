@@ -110,5 +110,5 @@ $(".city-list-container").on("click", ".city-name", function () {
 
     $("#city-name")[0].textContent = $(this)[0].textContent;
 
-    getListCity(coordinates);
+    getListedWeather(coordinates);
 })

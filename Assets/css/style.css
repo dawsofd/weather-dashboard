@@ -25,16 +25,17 @@ section {
   width: 25%;
   margin: 10px 20px 0 10px;
   padding: 10px 0 10px 10px;
-  background-color: lightgrey;
 }
 
-.search-button-panel {
-  margin: 10px;
+.search-button-panel button {
+  margin-top: 20px;
+  width: 230px;
 }
+
 
 .city-list-container {
-  margin-top: 5px;
-
+  margin-top: 20px;
+  border-top: solid;
 }
 
 .city-name {
@@ -59,7 +60,6 @@ section {
 }
 
 .card-header {
-  background-color: var(--bs-dark)
   text-align: center;
   color: white;
 }
