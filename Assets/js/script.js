@@ -100,8 +100,6 @@ $("#search-button").on("click", function (e) {
     $("form")[0].reset();
 })
 
-function searchCity
-
 $("#search-button").on("click", ".city-name", function () {
     var coordinates = (localStorage.getItem($(this)[0].textContent)).split(" ");
     coordinates[0] = parseFloat(coordinates[0]);
