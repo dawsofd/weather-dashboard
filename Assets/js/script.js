@@ -58,8 +58,8 @@ function getCurrentWeather(data) {
 }
 
 function searchCity() {
-    var cityName = cityCaseClean($("cityName")[0].value.trim());
-    var requestURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=8b3a9d9fec91e3b17c463ea6e68f3d3d";
+    var cityName = cityCaseClean($("#cityName")[0].value.trim());
+    var requestURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=a53da2335636723c4cc1f08dcc994683";
 
     fetch(requestURL).then(function (response) {
         if (response.ok) {
@@ -76,7 +76,7 @@ function searchCity() {
 
                 localStorage.setItem(cityName, latLon);
 
-                requestURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,&units=imperial&appid=8b3a9d9fec91e3b17c463ea6e68f3d3d";
+                requestURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,&units=imperial&appid=a53da2335636723c4cc1f08dcc994683";
 
                 fetch(requestURL).then(function (newResponse) {
                     if (newResponse.ok) {
@@ -100,3 +100,12 @@ $("#search-button").on("click", function (e) {
     $("form")[0].reset();
 })
 
+$("#search-button").on("click", ".city-name", function () {
+    var coordinates = (localStorage.getItem($(this)[0].textContent)).split(" ");
+    coordinates[0] = parseFloat(coordinates[0]);
+    coordinates[1] = parseFloat(coordinates[1]);
+
+    $("#city-name")[0].textContent = $(this)[0].textContent + " (" + dayjs().format('M/D/YYYY') + ")";
+
+    getListCity(coordinates);
+})
