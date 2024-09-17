@@ -27,7 +27,7 @@ function getWeather(data) {
         currentSelector = "#img-" + i;
         $(currentSelector)[0].src = weatherForecast.icon;
         currentSelector = "#temp-" + i;
-        $(currentSelector)[0].textContent = "Temp: " + weatherForecast.temperature + " \u2109";
+        $(currentSelector)[0].textContent = "Temp: " + weatherForecast.temp + " \u2109";
         currentSelector = "#hum-" + i;
         $(currentSelector)[0].textContent = "Humidity: " + weatherForecast.humidity + "%";
     }
@@ -36,8 +36,8 @@ function getWeather(data) {
 function getCurrentWeather(data) {
     $(".forecast-panel").addClass("visible");
 
-    $("#currentWeather")[0].src = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
-    $("#temperature")[0].textContent = "Temp: " + data.current.temperature.toFixed(1) + " \u2109";
+    $("#currentIcon")[0].src = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
+    $("#temperature")[0].textContent = "Temp: " + data.current.temp.toFixed(1) + " \u2109";
     $("#humidity")[0].textContent = "Humidity: " + data.current.humidity + "% ";
     $("#wind-speed")[0].textContent = "Wind Speed: " + data.current.wind_speed.toFixed(1) + " MPH";
     $("#uv-index")[0].textContent = " " + data.current.uvi;
@@ -76,7 +76,7 @@ function searchCity() {
 
                 localStorage.setItem(cityName, latLon);
 
-                requestURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,&units=imperial&appid=a53da2335636723c4cc1f08dcc994683";
+                requestURL = "https://api.openweathermap.org/data/3.0/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=a53da2335636723c4cc1f08dcc994683";
 
                 fetch(requestURL).then(function (newResponse) {
                     if (newResponse.ok) {
@@ -100,12 +100,24 @@ $("#search-button").on("click", function (e) {
     $("form")[0].reset();
 })
 
+function getListedWeather(coordinates) {
+    requestURL = "https://api.openweathermap.org/data/3.0/onecall?lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&exclude=minutely,hourly&units=imperial&appid=a53da2335636723c4cc1f08dcc994683";
+    
+    fetch(requestURL).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                getCurrentWeather(data);
+            })
+        }
+    })
+}
+
 $("#search-button").on("click", ".city-name", function () {
     var coordinates = (localStorage.getItem($(this)[0].textContent)).split(" ");
     coordinates[0] = parseFloat(coordinates[0]);
     coordinates[1] = parseFloat(coordinates[1]);
 
-    $("#city-name")[0].textContent = $(this)[0].textContent + " (" + dayjs().format('M/D/YYYY') + ")";
+    $("#city-name")[0].textContent = $(this)[0].textContent;
 
     getListCity(coordinates);
 })
