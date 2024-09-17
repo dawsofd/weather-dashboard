@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <header class="p-3 mb-2 bg-secondary text-white header">
+    <header class="p-3 mb-2 bg-dark text-white header">
         <h1>Weather Dashboard</h1>
     </header>
 
@@ -27,7 +27,7 @@
                             <input type="text" class="form-control" id="cityName" placeholder="San Diego">
                         </div>
                         <div class="col-3 search-button-panel">
-                            <button type="submit" class="btn btn-primary" id="search-button"></button>
+                            <button type="submit" class="btn btn-primary" id="search-button">Search</button>
                         </div>
                     </div>
                     <div class="city-list-container">
@@ -52,10 +52,6 @@
                 <div>
                     <p class="current-conditions" id="wind-speed"></p>
                 </div>
-                <div class="uv-index-block">
-                    <p>UV Index: </p>
-                    <p class="rounded current-info" id="uv-index"></p>
-                </div>
             </div>
             <div class="forecast-panel">
                 <h4>5-day Forecast:</h4>
@@ -63,61 +59,66 @@
                     <div class="row">
                         <div class="col">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header bg-dark">
                                     <h5 id="day-0"></h5>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body bg-dark">
                                     <img src="" id="img-0">
                                     <p class="card-text" id="temp-0"></p>
                                     <p class="card-text" id="hum-0"></p>
+                                    <p class="card-text" id="wind-0"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header bg-dark">
                                     <h5 id="day-1"></h5>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body bg-dark">
                                     <img src="" id="img-1">
                                     <p class="card-text" id="temp-1"></p>
                                     <p class="card-text" id="hum-1"></p>
+                                    <p class="card-text" id="wind-1"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header bg-dark">
                                     <h5 id="day-2"></h5>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body bg-dark">
                                     <img src="" id="img-2">
                                     <p class="card-text" id="temp-2"></p>
                                     <p class="card-text" id="hum-2"></p>
+                                    <p class="card-text" id="wind-2"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header bg-dark">
                                     <h5 id="day-3"></h5>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body bg-dark">
                                     <img src="" id="img-3">
                                     <p class="card-text" id="temp-3"></p>
                                     <p class="card-text" id="hum-3"></p>
+                                    <p class="card-text" id="wind-3"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header bg-dark">
                                     <h5 id="day-4"></h5>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body bg-dark">
                                     <img src="" id="img-4">
                                     <p class="card-text" id="temp-4"></p>
                                     <p class="card-text" id="hum-4"></p>
+                                    <p class="card-text" id="wind-4"></p>
                                 </div>
                             </div>
                         </div>
