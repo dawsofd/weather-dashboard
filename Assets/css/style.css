@@ -5,7 +5,7 @@
 .header {
   display: flex;
   justify-content: center;
-  background-color: indigo;
+  background-image: var(--bs-gradient);
 }
 
 body {
@@ -29,7 +29,7 @@ section {
 }
 
 .search-button-panel {
-  margin-left: -50px;
+  margin: 10px;
 }
 
 .city-list-container {
@@ -59,29 +59,16 @@ section {
 }
 
 .card-header {
+  background-color: var(--bs-dark)
   text-align: center;
-  background-color: blue;
+  color: white;
 }
 
 .card-body {
   text-align: center;
-  background-color: lightblue;
-}
-
-.favorable {
-  background-color: green;
   color: white;
 }
 
-.moderate {
-  background-color: yellow;
-  color: black;
-}
-
-.severe {
-  background-color: red;
-  color: white;
-}
 
 @media screen and (max-width: 575px) {
   .search-panel {

@@ -19,6 +19,7 @@ function getWeather(data) {
             date: convertUnix(data, i),
             icon: "http://openweathermap.org/img/wn/" + data.daily[i + 1].weather[0].icon + "@2x.png",
             temperature: data.daily[i + 1].temp.day.toFixed(1),
+            wind: data.daily[i + 1].wind_speed.toFixed(1),
             humidity: data.daily[i + 1].humidity
         }
 
@@ -28,6 +29,8 @@ function getWeather(data) {
         $(currentSelector)[0].src = weatherForecast.icon;
         currentSelector = "#temp-" + i;
         $(currentSelector)[0].textContent = "Temp: " + weatherForecast.temperature + " \u2109";
+        currentSelector = "#wind-" + i;
+        $(currentSelector)[0].textContent = "Wind: " + weatherForecast.wind+ " MPH";
         currentSelector = "#hum-" + i;
         $(currentSelector)[0].textContent = "Humidity: " + weatherForecast.humidity + "%";
     }
@@ -38,20 +41,8 @@ function getCurrentWeather(data) {
 
     $("#currentIcon")[0].src = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
     $("#temperature")[0].textContent = "Temp: " + data.current.temp.toFixed(1) + " \u2109";
+    $("#wind-speed")[0].textContent = "Wind: " + data.current.wind_speed.toFixed(1) + " MPH";
     $("#humidity")[0].textContent = "Humidity: " + data.current.humidity + "% ";
-    $("#wind-speed")[0].textContent = "Wind Speed: " + data.current.wind_speed.toFixed(1) + " MPH";
-    $("#uv-index")[0].textContent = " " + data.current.uvi;
-
-    if (data.current.uvi < 3) {
-        $("#uv-index").removeClass("moderate severe");
-        $("#uv-index").addClass("favorable");
-    } else if (data.current.uvi < 6) {
-        $("#uv-index").removeClass("favorable severe");
-        $("#uv-index").addClass("moderate");
-    } else {
-        $("#uv-index").removeClass("favorable moderate");
-        $("#uv-index").addClass("severe");
-    }
     
     getWeather(data);
 
@@ -112,7 +103,7 @@ function getListedWeather(coordinates) {
     })
 }
 
-$("#search-button").on("click", ".city-name", function () {
+$(".city-list-container").on("click", ".city-name", function () {
     var coordinates = (localStorage.getItem($(this)[0].textContent)).split(" ");
     coordinates[0] = parseFloat(coordinates[0]);
     coordinates[1] = parseFloat(coordinates[1]);
