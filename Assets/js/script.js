@@ -27,7 +27,7 @@ function getWeather(data) {
         currentSelector = "#img-" + i;
         $(currentSelector)[0].src = weatherForecast.icon;
         currentSelector = "#temp-" + i;
-        $(currentSelector)[0].textContent = "Temp: " + weatherForecast.temp + " \u2109";
+        $(currentSelector)[0].textContent = "Temp: " + weatherForecast.temperature + " \u2109";
         currentSelector = "#hum-" + i;
         $(currentSelector)[0].textContent = "Humidity: " + weatherForecast.humidity + "%";
     }
